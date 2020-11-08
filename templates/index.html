@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">House Price Prediction</h1>
+            <p class="lead">This is a simple house price prediction tool. Fill given form and see your dream house
+                price!</p>
+        </div>
+        <hr class="my-4">
+        <div class="card" style="width: 22rem;">
+            <div class="card-body">
+                {% if eligibility %}
+                    
+                    {% if status == 1 %}
+                        
+                        <h5 class="card-title text-success font-weight-bold">You're eligible for getting loan</h5>
+                    {%elif status == 0 %}
+                         
+                        <h5 class="card-title text-danger font-weight-bold">You're not eligible for getting loan</h5>
+                    {%endif%}
+                {%else%}
+                    <h5 class="card-title font-weight-bold text-info">See Your Status here</h5>
+                {%endif%}
+            </div>
+        </div>
+        <hr class="my-4">
+        <form action="{%url 'loan_price'%}" method="POST">
+            {%csrf_token%}
+            <!-- Gender -->
+            <label class="form-check-label">Gender</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="Gender" id="male"  value="1" checked>
+                <label class="form-check-label" for="male">
+                    Male
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="Gender" id="Female"  value="0">
+                <label class="form-check-label" for="Female">
+                    Female
+                </label>
+            </div>
+            <hr class="my-4">
+            <!-- Married -->
+            <label class="form-check-label">Married</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="Married" id="Married"  value="1" checked>
+                <label class="form-check-label" for="Married">
+                    Married
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="Married" id="Unmarried" value="0">
+                <label class="form-check-label" for="Unmarried">
+                    Unmarried
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <label for="Dependents">Dependents</label>
+                <input type="number" class="form-control" id="Dependents" name="Dependents" required>
+            </div>
+            <hr class="my-4">
+            <!-- Education -->
+            <label class="form-check-label">Education</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="Education" id="Graduate" value="1" checked>
+                <label class="form-check-label" for="Graduate">
+                    Graduate
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="Education" id="Not_Graduate" value="0">
+                <label class="form-check-label" for="Not_Graduate">
+                    Not Graduate
+                </label>
+            </div>
+            <hr class="my-4">
+            <!-- Self_Employed -->
+            <label class="form-check-label">Self_Employed</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="Self_Employed" id="Self_EmployedYes" value="1" checked>
+                <label class="form-check-label" for="Self_EmployedYes">
+                    Yes
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="Self_Employed" id="Self_EmployedNo" value="0">
+                <label class="form-check-label" for="Self_EmployedNo">
+                    No
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="Applicant_Income">Applicant_Income</label>
+                <input type="number" class="form-control" id="Applicant_Income" name="Applicant_Income" required>
+            </div>
+            <div class="form-group">
+                <label for="Coapplicant_Income">Coapplicant_Income</label>
+                <input type="number" class="form-control" id="Coapplicant_Income" name="Coapplicant_Income" required>
+            </div>
+            <div class="form-group">
+                <label for="Loan_Amount">Loan_Amount</label>
+                <input type="number" class="form-control" id="Loan_Amount" name="Loan_Amount" required>
+            </div>
+            <div class="form-group">
+                <label for="Loan_Amount_Term">Loan_Amount_Term</label>
+                <input type="number" class="form-control" id="Loan_Amount_Term" name="Loan_Amount_Term" required>
+            </div>
+            <!-- Credit_History -->
+             
+             <label class="form-check-label">Credit_History</label>
+             <div class="form-check">
+                 <input class="form-check-input" type="radio" name="Credit_History" id="Credit_yes"  value="1" checked>
+                 <label class="form-check-label" for="Credit_yes">
+                     Yes
+                 </label>
+             </div>
+             <div class="form-check">
+                 <input class="form-check-input" type="radio" name="Credit_History" id="Credit_no" value="0">
+                 <label class="form-check-label" for="Credit_no">
+                     No
+                 </label>
+             </div>
+             <!-- Property_Area -->
+             <label class="form-check-label">Property_Area</label>
+             <div class="form-check">
+                <input class="form-check-input" type="radio" name="Property_Area" id="Urban" value="1" checked>
+                <label class="form-check-label" for="exampleRadios1">
+                    Urban
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="Property_Area" id="Semiurban" value="2">
+                <label class="form-check-label" for="Semiurban">
+                    Semiurban
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="Property_Area" id="Rural" value="3">
+                <label class="form-check-label" for="Rural">
+                    Rural
+                </label>
+            </div>
+
+
+            <input type="submit" value="Register" class="btn btn-secondary btn-block">
+        </form>
+
+
+    </div>
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
